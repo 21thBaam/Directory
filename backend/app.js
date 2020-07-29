@@ -19,6 +19,7 @@ app.use(cors({origin: "http://localhost:4200"})); //Doubts
 
 //routes
 app.use("/api/folders", require("./routes/folders-routes"));
+app.use("/api/links", require("./routes/links-routes"));
 
 //starting the server
 app.listen(app.get("port"), () => {

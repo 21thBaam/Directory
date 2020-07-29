@@ -1,4 +1,3 @@
-const express = require("express");
 const foldersController = {};
 const pool = require("../database");
 const {query} = require("express");
@@ -9,6 +8,7 @@ foldersController.getFolders = (req, res) => {
             res.json(rows);
         }else{
             console.error(err);
+            res.send(err);
         }
     });
 }
@@ -20,6 +20,7 @@ foldersController.addFolder = (req, res) => {
             res.json({status: "Folder Added"});
         }else{
             console.error(err);
+            res.send(err);
         }
     });
 }
@@ -32,6 +33,7 @@ foldersController.editFolder = (req, res) => {
             res.json({status: "Folder Updated"});
         }else{
             console.error(err);
+            res.send(err);
         }
     });
 }
@@ -43,6 +45,7 @@ foldersController.deleteFolder = (req, res) => {
             res.json({status: "Folder Deleted"});
         }else{
             console.error(err);
+            res.send(err);
         }
     });
 }
