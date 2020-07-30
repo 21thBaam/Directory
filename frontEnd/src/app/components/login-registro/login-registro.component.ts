@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router, ParamMap} from "@angular/router";
 
 @Component({
   selector: 'app-login-registro',
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginRegistroComponent implements OnInit {
 
-  constructor() { }
+  constructor(private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
+  }
+
+  showLoginForm(){
+    this.router.navigate(["loginForm"], {relativeTo: this.route});
+  }
+
+  showRegisterForm(){
+    this.router.navigate(["registerForm"], {relativeTo: this.route});
   }
 
 }

@@ -1,0 +1,12 @@
+.card{
+    width: 50%;
+    margin-top: 15vh;
+}
+
+.card-header{
+    display: flex;
+}
+
+.btn-block+.btn-block{
+    margin-top: 0;
+}

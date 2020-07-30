@@ -1,1 +1,13 @@
-<p>login-registro works!</p>
+<div class="container">
+    <div class="card mx-auto">
+        <div class="card-header">
+            <button class="btn btn-primary btn-lg btn-block selected" style="margin-right: 5px;" (click)="showLoginForm()">
+                Login
+            </button>
+            <button class="btn btn-secondary btn-lg btn-block" (click)="showRegisterForm()">
+                Registro
+            </button>
+        </div>
+        <router-outlet></router-outlet>
+    </div>
+</div>
