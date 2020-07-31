@@ -1,6 +1,7 @@
 const usersController = {};
 const pool = require("../database");
 const {query} = require("express");
+const jwt = require("jsonwebtoken");
 
 usersController.getUsers = (req, res) => {
     pool.query("SELECT * FROM users", (err,rows) => {
