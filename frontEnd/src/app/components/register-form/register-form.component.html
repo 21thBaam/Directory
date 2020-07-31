@@ -1,7 +1,62 @@
-<div class="card-body">
-    <h5 class="card-title">Register Form</h5>
-    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-</div>
-<div class="card-footer">
-    <a href="#" class="btn btn-primary">Submit</a>
-</div>
+<form #registerForm="ngForm" (submit)="OnSubmit()">
+    <div class="card-body">
+        <h5 class="card-title">Register Form</h5>
+
+        <div class="form-group">
+            <label>Username</label>
+            <input type="text" class="form-control" placeholder="Enter your Username"
+            name="username" [(ngModel)]="registerUser.username" #username="ngModel" minlength="4" pattern="[a-zA-Z0-9 ]*" required>
+        </div>
+        <div *ngIf="username.invalid && (username.dirty && username.touched)" class="alert alert-danger">
+            <div *ngIf="username.errors.minlength">Minimum length is 4</div>
+            <div *ngIf="username.errors.pattern">Only Letters and Numbers</div>
+            <div *ngIf="username.errors.required">Enter an Username</div>
+        </div>
+
+        <div class="form-group">
+            <label>Password</label>
+            <input type="password" class="form-control" placeholder="Enter your Password"
+            name="password" [(ngModel)]="registerUser.password" #password="ngModel" minlength="4" pattern="[a-zA-Z0-9 ]*" required>
+        </div>
+        <div *ngIf="password.invalid && (password.dirty && password.touched)" class="alert alert-danger">
+            <div *ngIf="password.errors.minlength">Minimum length is 4</div>
+            <div *ngIf="password.errors.pattern">Only Letters and Numbers</div>
+            <div *ngIf="password.errors.required">Enter a Password</div>
+        </div>
+
+        <div class="form-group">
+            <label>Confirm Password</label>
+            <input type="password" class="form-control" placeholder="Enter your Confirm Password"
+            name="confirmPassword" [(ngModel)]="confirmPassword" #confirmpassword="ngModel" minlength="4" pattern="[a-zA-Z0-9 ]*" required>
+        </div>
+        <div *ngIf="confirmpassword.invalid && (confirmpassword.dirty && confirmpassword.touched)" class="alert alert-danger">
+            <div *ngIf="confirmpassword.errors.minlength">Minimum length is 4</div>
+            <div *ngIf="confirmpassword.errors.pattern">Only Letters and Numbers</div>
+            <div *ngIf="confirmpassword.errors.required">Enter a Confirm Password</div>
+        </div>
+
+        <div class="form-group">
+            <label>Email</label>
+            <input type="email" class="form-control" placeholder="Enter your Email"
+            name="email" [(ngModel)]="registerUser.email" #email="ngModel" maxlength="50" pattern="\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" required>
+        </div>
+        <div *ngIf="email.invalid && (email.dirty && email.touched)" class="alert alert-danger">
+            <div *ngIf="email.errors.maxlength">Maximum length is 50</div>
+            <div *ngIf="email.errors.pattern">Email Format is incorrect</div>
+            <div *ngIf="email.errors.required">Enter a Confirm Password</div>
+        </div>
+
+        <div *ngIf="(password.valid && password.dirty && password.touched) && (confirmpassword.valid && confirmpassword.dirty && confirmpassword.touched)">
+            <div *ngIf="registerUser.password !== confirmPassword" class="alert alert-danger">Password doen't match with Confirm Password</div>
+        </div>
+    </div>
+    <div class="card-footer">
+        <button type="submit" [disabled]="!registerForm.form.valid" class="btn btn-primary btn-lg btn-block">Sign in</button>
+    </div>
+</form>
+
+<!--
+    id="username" #username="ngModel" 
+    #password="ngModel"
+    #email="ngModel"
+-->

@@ -1,7 +1,30 @@
-<div class="card-body">
-    <h5 class="card-title">Login Form</h5>
-    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-</div>
-<div class="card-footer">
-    <a href="#" class="btn btn-primary">Log in</a>
-</div>
+<form #loginForm="ngForm" (submit)="OnSubmit()">
+    <div class="card-body">
+        <h5 class="card-title">Login Form</h5>
+
+        <div class="form-group">
+            <label>Username</label>
+            <input type="text" class="form-control" placeholder="Enter your Username"
+            name="username" [(ngModel)]="loginUser.username" #username="ngModel" minlength="4" pattern="[a-zA-Z0-9 ]*" required>
+        </div>
+        <div *ngIf="username.invalid && (username.dirty && username.touched)" class="alert alert-danger">
+            <div *ngIf="username.errors.minlength">Minimum length is 4</div>
+            <div *ngIf="username.errors.pattern">Only Letters and Numbers</div>
+            <div *ngIf="username.errors.required">Enter an Username</div>
+        </div>
+
+        <div class="form-group">
+            <label>Password</label>
+            <input type="password" class="form-control" placeholder="Enter your Password"
+            name="password" [(ngModel)]="loginUser.password" #password="ngModel" minlength="4" pattern="[a-zA-Z0-9 ]*" required>
+        </div>
+        <div *ngIf="password.invalid && (password.dirty && password.touched)" class="alert alert-danger">
+            <div *ngIf="password.errors.minlength">Minimum length is 4</div>
+            <div *ngIf="password.errors.pattern">Only Letters and Numbers</div>
+            <div *ngIf="password.errors.required">Enter a Password</div>
+        </div>
+    </div>
+    <div class="card-footer">
+        <button type="submit" [disabled]="!loginForm.form.valid" class="btn btn-primary btn-lg btn-block">Log in</button>
+    </div>
+</form>

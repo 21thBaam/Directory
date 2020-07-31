@@ -13,6 +13,23 @@ usersController.getUsers = (req, res) => {
     });
 }
 
+usersController.getUser = (req, res) => {
+    const {username, password} = req.body;
+    pool.query("SELECT * FROM users WHERE username=? AND password=?", [username, password], (err,rows) => {
+        if(!err){
+            if(rows.length > 0){
+                const token = jwt.sign({idUsers: rows[0]["idUsers"]}, process.env.KEY);
+                res.status(200).json({token});
+            }else{
+                res.json({status: "Not founded"});
+            }  
+        }else{
+            console.error(err);
+            res.send(err);
+        }
+    });
+}
+
 usersController.addUser = (req, res) => {
     const {username, password, email} = req.body;
     pool.query("INSERT INTO users(username, password, email) VALUES(?, ?, ?)", [username, password, email], (err) => {
