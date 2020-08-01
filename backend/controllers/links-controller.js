@@ -8,7 +8,7 @@ linksController.getLinks = (req, res) => {
             res.json(rows);
         }else{
             console.error(err);
-            res.send(err);
+            res.status(401).json({status: "Unauthorized Request", error: "Wrong Request"});
         }
     });
 }
@@ -20,7 +20,7 @@ linksController.addLink = (req, res) => {
             res.json({status: "Link Added"});
         }else{
             console.error(err);
-            res.send(err);
+            res.status(401).json({status: "Unauthorized Request", error: "Wrong Request"});
         }
     });
 }
@@ -33,7 +33,7 @@ linksController.editLink = (req, res) => {
             res.json({status: "Link Updated"});
         }else{
             console.error(err);
-            res.send(err);
+            res.status(401).json({status: "Unauthorized Request", error: "Wrong Request"});
         }
     });
 }
@@ -45,7 +45,7 @@ linksController.deleteLink = (req, res) => {
             res.json({status: "Link Deleted"});
         }else{
             console.error(err);
-            res.send(err);
+            res.status(401).json({status: "Unauthorized Request", error: "Wrong Request"});
         }
     });
 }

@@ -8,7 +8,7 @@ foldersController.getFolders = (req, res) => {
             res.json(rows);
         }else{
             console.error(err);
-            res.send(err);
+            res.status(401).json({status: "Unauthorized Request", error: "Wrong Request"});
         }
     });
 }
@@ -20,7 +20,7 @@ foldersController.addFolder = (req, res) => {
             res.json({status: "Folder Added"});
         }else{
             console.error(err);
-            res.send(err);
+            res.status(401).json({status: "Unauthorized Request", error: "Wrong Request"});
         }
     });
 }
@@ -33,7 +33,7 @@ foldersController.editFolder = (req, res) => {
             res.json({status: "Folder Updated"});
         }else{
             console.error(err);
-            res.send(err);
+            res.status(401).json({status: "Unauthorized Request", error: "Wrong Request"});
         }
     });
 }
@@ -45,7 +45,7 @@ foldersController.deleteFolder = (req, res) => {
             res.json({status: "Folder Deleted"});
         }else{
             console.error(err);
-            res.send(err);
+            res.status(401).json({status: "Unauthorized Request", error: "Wrong Request"});
         }
     });
 }

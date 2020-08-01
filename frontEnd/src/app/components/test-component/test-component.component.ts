@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {AuthService} from "../../services/auth.service";
+
+declare var $: any;
 
 @Component({
   selector: 'app-test-component',
@@ -7,9 +10,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TestComponentComponent implements OnInit {
 
-  constructor() { }
+  data: any;
+
+  constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
+    $(document).ready(() => {
+      $(".toast").toast("show");
+    });
+
+    this.authService.getUsers().subscribe(
+      res => {
+        this.data = res;
+        console.log(this.data);
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
 }

@@ -3,6 +3,8 @@ import { UserModel } from "../../models/user-model";
 import { AuthService } from "../../services/auth.service";
 import { Router } from '@angular/router';
 
+declare var Swal: any;
+
 @Component({
   selector: 'app-login-form',
   templateUrl: './login-form.component.html',
@@ -21,8 +23,22 @@ export class LoginFormComponent implements OnInit {
     alert("Works");
     console.log(this.loginUser);
     this.authService.logIn(this.loginUser).subscribe(
-        res => { console.log(res);
-          this.router.navigate(['/test']); },
+        res => { 
+          if(res.token){
+            localStorage.setItem('token', res.token);
+            this.router.navigate(['/test']);
+          }else{
+            this.Message();
+          }
+           },
         err => { console.log(err); } );
+  }
+
+  Message(){
+    Swal.fire(
+      'Good job!',
+      'You clicked the button!',
+      'success'
+    );
   }
 }

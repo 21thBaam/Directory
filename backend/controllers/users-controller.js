@@ -9,7 +9,7 @@ usersController.getUsers = (req, res) => {
             res.json(rows);
         }else{
             console.error(err);
-            res.send(err);
+            res.status(401).json({status: "Unauthorized Request", error: "Wrong Request"});
         }
     });
 }
@@ -22,11 +22,11 @@ usersController.getUser = (req, res) => {
                 const token = jwt.sign({idUsers: rows[0]["idUsers"]}, process.env.KEY);
                 res.status(200).json({token});
             }else{
-                res.json({status: "Not founded"});
+                res.status(401).json({status: "Unauthorized Request", error: "Not founded"});
             }  
         }else{
             console.error(err);
-            res.send(err);
+            res.status(401).json({status: "Unauthorized Request", error: "Wrong Request"});
         }
     });
 }
@@ -38,7 +38,7 @@ usersController.addUser = (req, res) => {
             res.json({status: "User Added"});
         }else{
             console.error(err);
-            res.send(err);
+            res.status(401).json({status: "Unauthorized Request", error: "Wrong Request"});
         }
     });
 }
@@ -51,7 +51,7 @@ usersController.editUser = (req, res) => {
             res.json({status: "User Updated"});
         }else{
             console.error(err);
-            res.send(err);
+            res.status(401).json({status: "Unauthorized Request", error: "Wrong Request"});
         }
     });
 }
@@ -63,7 +63,7 @@ usersController.deleteUser = (req, res) => {
             res.json({status: "User Deleted"});
         }else{
             console.error(err);
-            res.send(err);
+            res.status(401).json({status: "Unauthorized Request", error: "Wrong Request"});
         }
     });
 }

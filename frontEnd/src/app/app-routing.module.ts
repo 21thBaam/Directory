@@ -5,6 +5,8 @@ import { RegisterFormComponent } from './components/register-form/register-form.
 import { LoginRegistroComponent } from './components/login-registro/login-registro.component';
 import { TestComponentComponent } from "./components/test-component/test-component.component";
 
+import { AuthGuard } from "./guard/auth.guard";
+
 const routes: Routes = [
   {
     path: "login",
@@ -15,7 +17,7 @@ const routes: Routes = [
     ]
   },
   {
-    path: "test", component: TestComponentComponent
+    path: "test", component: TestComponentComponent, canActivate: [AuthGuard]
   },
   {
     path: '',
