@@ -13,6 +13,7 @@ import { RegisterFormComponent } from './components/register-form/register-form.
 
 import { AuthGuard } from "./guard/auth.guard";
 import { TokenInterceptorService } from "./services/token-interceptor.service";
+import { FoldersComponent } from './components/folders/folders.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { TokenInterceptorService } from "./services/token-interceptor.service";
     LoginRegistroComponent,
     TestComponentComponent,
     LoginFormComponent,
-    RegisterFormComponent
+    RegisterFormComponent,
+    FoldersComponent
   ],
   imports: [
     BrowserModule,

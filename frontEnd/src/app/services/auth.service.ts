@@ -12,7 +12,7 @@ private URL = "http://localhost:3000";
 
   constructor(private http: HttpClient, private router: Router) { }
 
-  logIn(user){
+  logIn(user): Observable<any>{
     return this.http.post<any>(`${this.URL}/api/users/`, user);
   }
 
@@ -27,11 +27,7 @@ private URL = "http://localhost:3000";
     this.router.navigate(["/login"]);
   }  
 
-  getToken(){
+  getToken(): string{
     return localStorage.getItem("token");
-  }
-
-  getUsers(){
-    return this.http.get<any>(`${this.URL}/api/users`);
   }
 }

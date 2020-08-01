@@ -4,6 +4,7 @@ import { LoginFormComponent } from './components/login-form/login-form.component
 import { RegisterFormComponent } from './components/register-form/register-form.component';
 import { LoginRegistroComponent } from './components/login-registro/login-registro.component';
 import { TestComponentComponent } from "./components/test-component/test-component.component";
+import { FoldersComponent } from "./components/folders/folders.component";
 
 import { AuthGuard } from "./guard/auth.guard";
 
@@ -18,6 +19,9 @@ const routes: Routes = [
   },
   {
     path: "test", component: TestComponentComponent, canActivate: [AuthGuard]
+  },
+  {
+    path: "folders", component: FoldersComponent, canActivate: [AuthGuard]
   },
   {
     path: '',

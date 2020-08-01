@@ -19,7 +19,7 @@ usersController.getUser = (req, res) => {
     pool.query("SELECT * FROM users WHERE username=? AND password=?", [username, password], (err,rows) => {
         if(!err){
             if(rows.length > 0){
-                const token = jwt.sign({idUsers: rows[0]["idUsers"]}, process.env.KEY);
+                const token = jwt.sign({idUsers: rows[0]["idUsers"]}, process.env.KEY, { expiresIn: 60*60*2 } );
                 res.status(200).json({token});
             }else{
                 res.status(401).json({status: "Unauthorized Request", error: "Not founded"});

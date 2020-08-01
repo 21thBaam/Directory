@@ -1,9 +1,12 @@
 const foldersController = {};
 const pool = require("../database");
 const {query} = require("express");
+const jwt = require("jsonwebtoken");
 
 foldersController.getFolders = (req, res) => {
-    pool.query("SELECT * FROM folders", (err, rows) => {
+    const token = req.headers.authorization.split(" ")[1];
+    const {idUsers} = jwt.verify(token, process.env.KEY);
+    pool.query("SELECT * FROM folders WHERE idUser=?", [idUsers], (err, rows) => {
         if(!err){
             res.json(rows);
         }else{

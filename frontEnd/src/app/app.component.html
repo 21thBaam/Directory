@@ -13,16 +13,16 @@
           <a class="nav-link" [routerLink]="['test']" routerLinkActive="active">Test</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Sample02</a>
+          <a class="nav-link" routerLink="/folders" routerLinkActive="active">Folders Collection</a>
         </li>
       </ul>
       <ul class="navbar-nav ml-auto">
         <ng-container *ngIf="!authLoggedIn(); else loggedIn">
           <li class="nav-item">
-            <a class="nav-link" routerLink="/signin" routerLinkActive="active">SignIn</a>
+            <a class="nav-link" routerLink="/login/loginForm" routerLinkActive="active">Sign In</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" routerLink="/signup" routerLinkActive="active">SignUp</a>
+            <a class="nav-link" routerLink="/login/registerForm" routerLinkActive="active">Sign Up</a>
           </li>
         </ng-container>
         <ng-template #loggedIn>
