@@ -16,6 +16,8 @@ import { TokenInterceptorService } from "./services/token-interceptor.service";
 import { FoldersComponent } from './components/folders/folders.component';
 import { LinksComponent } from './components/links/links.component';
 import { Page404Component } from './components/page404/page404.component';
+import { AddFolderComponent } from './components/add-folder/add-folder.component';
+import { HighlightDirective } from './directives/highlight.directive';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { Page404Component } from './components/page404/page404.component';
     RegisterFormComponent,
     FoldersComponent,
     LinksComponent,
-    Page404Component
+    Page404Component,
+    AddFolderComponent,
+    HighlightDirective
   ],
   imports: [
     BrowserModule,
