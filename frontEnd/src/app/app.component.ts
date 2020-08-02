@@ -13,7 +13,7 @@ export class AppComponent implements OnInit{
   constructor(private authService: AuthService, private router: Router){}
   title = 'frontEnd';
 
-  forbiddenLinks = ["/test","/login"];
+  forbiddenLinks = ["/test","/login","/login/loginForm","/login/registerForm"];
 
   ngOnInit():void{
     $(document).ready(() => {

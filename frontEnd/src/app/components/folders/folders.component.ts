@@ -14,7 +14,7 @@ export class FoldersComponent implements OnInit {
   folders: FolderModel[] = [{}] as FolderModel[];
 
   ngOnInit(): void {
-    this.folderService.getFolder().subscribe(
+    this.folderService.getFolders().subscribe(
       res => {
         this.folders = res;
       },

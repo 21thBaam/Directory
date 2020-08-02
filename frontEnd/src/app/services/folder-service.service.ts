@@ -11,7 +11,7 @@ export class FolderServiceService {
 
   constructor(private http: HttpClient) { }
 
-  getFolder(): Observable<any>{
+  getFolders(): Observable<any>{
     return this.http.get<any>(`${this.URL}`);
   }
 }

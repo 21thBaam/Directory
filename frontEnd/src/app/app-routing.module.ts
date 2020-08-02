@@ -7,6 +7,7 @@ import { TestComponentComponent } from "./components/test-component/test-compone
 import { FoldersComponent } from "./components/folders/folders.component";
 import { LinksComponent } from "./components/links/links.component";
 import { Page404Component } from "./components/page404/page404.component";
+import { AddFolderComponent } from "./components/add-folder/add-folder.component";
 
 import { AuthGuard } from "./guard/auth.guard";
 
@@ -27,6 +28,9 @@ const routes: Routes = [
   },
   {
     path: "links", component: LinksComponent, canActivate: [AuthGuard]
+  },
+  {
+    path: "add", component: AddFolderComponent, canActivate: [AuthGuard]
   },
   {
     path: '',
