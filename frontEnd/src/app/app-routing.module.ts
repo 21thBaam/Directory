@@ -5,8 +5,6 @@ import { RegisterFormComponent } from './components/register-form/register-form.
 import { LoginRegistroComponent } from './components/login-registro/login-registro.component';
 import { TestComponentComponent } from "./components/test-component/test-component.component";
 import { FoldersComponent } from "./components/folders/folders.component";
-import { LinksComponent } from "./components/links/links.component";
-import { Page404Component } from "./components/page404/page404.component";
 
 import { AuthGuard } from "./guard/auth.guard";
 
@@ -26,16 +24,9 @@ const routes: Routes = [
     path: "folders", component: FoldersComponent, canActivate: [AuthGuard]
   },
   {
-    path: "links", component: LinksComponent, canActivate: [AuthGuard]
-  },
-  {
     path: '',
     redirectTo: 'login',
     pathMatch: 'full' 
-  },
-  {
-    path: '**',
-    component: Page404Component
   }
 ];
 
