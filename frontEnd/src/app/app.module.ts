@@ -14,8 +14,6 @@ import { RegisterFormComponent } from './components/register-form/register-form.
 import { AuthGuard } from "./guard/auth.guard";
 import { TokenInterceptorService } from "./services/token-interceptor.service";
 import { FoldersComponent } from './components/folders/folders.component';
-import { LinksComponent } from './components/links/links.component';
-import { Page404Component } from './components/page404/page404.component';
 
 @NgModule({
   declarations: [
@@ -24,9 +22,7 @@ import { Page404Component } from './components/page404/page404.component';
     TestComponentComponent,
     LoginFormComponent,
     RegisterFormComponent,
-    FoldersComponent,
-    LinksComponent,
-    Page404Component
+    FoldersComponent
   ],
   imports: [
     BrowserModule,

@@ -1,13 +1,13 @@
 <div class="container">
     <div class="row">
         <div *ngFor="let folder of folders" class="card" style="max-width: 15rem;">
-            <a [routerLink]="['/links']" [queryParams]="{ idFolder: folder.idFolder}" routerLinkActive="active">
+            <a routerLink="/login" routerLinkActive="active">
                 <div class="card-body">
                     <img src="../../../assets/Images/folder-icon.png" class="card-img-top" alt="Folder" />
                 </div>
                 <div class="card-footer">
                     <h5 class="card-title">{{folder?.folderName}}</h5>
-                    <p class="card-text">{{folder?.description | slice:0:35}}</p>
+                    <p class="card-text">{{folder['description'] | slice:0:35}}</p>
                     <p class="card-text"><small class="text-muted">{{folder?.createdDate}}</small></p>
                 </div>
             </a>
