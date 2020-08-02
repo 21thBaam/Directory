@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { Observable, of } from 'rxjs';
+import { LinkModel } from "../models/link-model";
 
 @Injectable({
   providedIn: 'root'
@@ -13,5 +14,9 @@ export class LinksService {
 
   getLinks(idFolder): Observable<any>{
     return this.http.get<any>(`${this.URL}/${idFolder}`);
+  }
+
+  addLink(link: LinkModel){
+    return this.http.post<any>(`${this.URL}`, link);
   }
 }

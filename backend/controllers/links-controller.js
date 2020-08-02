@@ -19,8 +19,10 @@ linksController.getLinks = (req, res) => {
 }
 
 linksController.addLink = (req, res) => {
-    const {idFolder, idUser, title, description, URL} = req.body;
-    pool.query("INSERT INTO links (idFolder, idUser, title, description, URL) VALUES(?, ?, ?, ?, ?)", [idFolder, idUser, title, description, URL], (err) => {
+    const token = req.headers.authorization.split(" ")[1];
+    const {idUsers} = jwt.verify(token, process.env.KEY);
+    const {idFolder, title, description, URL} = req.body;
+    pool.query("INSERT INTO links (idFolder, idUser, title, description, URL) VALUES(?, ?, ?, ?, ?)", [idFolder, idUsers, title, description, URL], (err) => {
         if(!err){
             res.json({status: "Link Added"});
         }else{

@@ -17,8 +17,10 @@ foldersController.getFolders = (req, res) => {
 }
 
 foldersController.addFolder = (req, res) => {
-    const {idUser, folderName, description} = req.body;
-    pool.query("INSERT INTO folders (idUser, folderName, description) VALUES (?, ?, ?)", [idUser, folderName, description], (err) => {
+    const token = req.headers.authorization.split(" ")[1];
+    const {idUsers} = jwt.verify(token, process.env.KEY);
+    const {folderName, description} = req.body;
+    pool.query("INSERT INTO folders (idUser, folderName, description) VALUES (?, ?, ?)", [idUsers, folderName, description], (err) => {
         if(!err){
             res.json({status: "Folder Added"});
         }else{

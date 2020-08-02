@@ -4,6 +4,8 @@ import { AuthService } from "./auth.service";
 import { Router } from "@angular/router";
 import { catchError, tap} from 'rxjs/operators';
 
+declare var Swal: any;
+
 @Injectable({
   providedIn: 'root'
 })
@@ -32,6 +34,17 @@ export class TokenInterceptorService implements HttpInterceptor{
 
   private handleAuthError(){
     localStorage.removeItem("token");
+    this.wrong();
     this.router.navigateByUrl('/login');
+  }
+
+  wrong(){
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'Something went wrong!',
+      showConfirmButton: false,
+      timer: 1500
+    });
   }
 }
