@@ -1,9 +1,14 @@
 const linksController = {};
 const pool = require("../database");
 const {query} = require("express");
+const jwt = require("jsonwebtoken");
 
 linksController.getLinks = (req, res) => {
-    pool.query("SELECT * FROM links", (err, rows) => {
+    const token = req.headers.authorization.split(" ")[1];
+    const {idUsers} = jwt.verify(token, process.env.KEY);
+    const {idFolder} = req.params;
+    
+    pool.query("SELECT * FROM links WHERE idFolder=? AND idUser=?", [idFolder, idUsers], (err, rows) => {
         if(!err){
             res.json(rows);
         }else{
