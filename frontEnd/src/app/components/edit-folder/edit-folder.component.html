@@ -1,0 +1,44 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6 mx-auto">
+            <form #editForm="ngForm" (submit)="onSubmit();">
+                <div class="card">
+                    <div class="card-header">
+                        Edit Folder
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label>Folder Name</label>
+                            <input type="text" class="form-control" placeholder="Enter Folder Name" name="folderName"
+                                [(ngModel)]="folderData.folderName" #folderName="ngModel" minlength="4"
+                                pattern="[a-zA-Z0-9 ]*" required />
+                        </div>
+                        <div *ngIf="folderName.invalid && (folderName.dirty && folderName.touched)"
+                            class="alert alert-danger">
+                            <div *ngIf="folderName.errors.minlength">Minimum length is 4</div>
+                            <div *ngIf="folderName.errors.pattern">Only Letters and Numbers</div>
+                            <div *ngIf="folderName.errors.required">Enter a folder name</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Description</label>
+                            <input type="text" class="form-control" placeholder="Enter a description" name="description"
+                                [(ngModel)]="folderData.description" #description="ngModel" minlength="4"
+                                pattern="[a-zA-Z0-9 ]*" required />
+                        </div>
+                        <div *ngIf="description.invalid && (description.dirty && description.touched)"
+                            class="alert alert-danger">
+                            <div *ngIf="description.errors.minlength">Minimum length is 4</div>
+                            <div *ngIf="description.errors.pattern">Only Letters and Numbers</div>
+                            <div *ngIf="description.errors.required">Enter a description</div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button type="submit" [disabled]="!editForm.form.valid" class="btn btn-success">Edit
+                            Folder</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

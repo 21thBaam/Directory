@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { LinkModel } from "../../models/link-model";
 import { LinksService } from "../../services/links.service";
 import { ActivatedRoute } from '@angular/router';
-import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-links',

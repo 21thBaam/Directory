@@ -16,7 +16,19 @@ export class FolderServiceService {
     return this.http.get<any>(`${this.URL}`);
   }
 
+  getFolder(idFolder: number): Observable<any>{
+    return this.http.get<any>(`${this.URL}/${idFolder}`);
+  }
+
+  editFolder(folder: FolderModel){
+    return this.http.put<any>(`${this.URL}/${folder.idFolder}`, folder);
+  }
+
   addFolder(folder: FolderModel){
     return this.http.post<any>(`${this.URL}`,folder);
+  }
+
+  deleteFolder(folder: FolderModel){
+    return this.http.delete<any>(`${this.URL}/${folder.idFolder}`);
   }
 }

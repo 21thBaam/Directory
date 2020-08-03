@@ -8,6 +8,7 @@ import { FoldersComponent } from "./components/folders/folders.component";
 import { LinksComponent } from "./components/links/links.component";
 import { Page404Component } from "./components/page404/page404.component";
 import { AddFolderComponent } from "./components/add-folder/add-folder.component";
+import { EditFolderComponent } from "./components/edit-folder/edit-folder.component";
 
 import { AuthGuard } from "./guard/auth.guard";
 
@@ -31,6 +32,9 @@ const routes: Routes = [
   },
   {
     path: "add", component: AddFolderComponent, canActivate: [AuthGuard]
+  },
+  {
+    path: "editFolder", component: EditFolderComponent, canActivate: [AuthGuard]
   },
   {
     path: '',

@@ -16,6 +16,20 @@ foldersController.getFolders = (req, res) => {
     });
 }
 
+foldersController.getFolder = (req, res) => {
+    const token = req.headers.authorization.split(" ")[1];
+    const {idUsers} = jwt.verify(token, process.env.KEY);
+    const {idFolder} = req.params;
+    pool.query("SELECT * FROM folders WHERE idUser=? AND idFolder=?", [idUsers, idFolder], (err, rows) => {
+        if(!err){
+            res.json(rows);
+        }else{
+            console.error(err);
+            res.status(401).json({status: "Unauthorized Request", error: "Wrong Request"});
+        }
+    });
+}
+
 foldersController.addFolder = (req, res) => {
     const token = req.headers.authorization.split(" ")[1];
     const {idUsers} = jwt.verify(token, process.env.KEY);
@@ -44,13 +58,23 @@ foldersController.editFolder = (req, res) => {
 }
 
 foldersController.deleteFolder = (req, res) => {
+    const token = req.headers.authorization.split(" ")[1];
+    const {idUsers} = jwt.verify(token, process.env.KEY);
     const {idFolder} = req.params;
-    pool.query("DELETE FROM folders WHERE idFolder=?", [idFolder], (err) => {
-        if(!err){
-            res.json({status: "Folder Deleted"});
-        }else{
+
+    pool.query("DELETE FROM links WHERE idFolder=? AND idUser=?", [idFolder, idUsers], (err) => {
+        if (!err) {
+            pool.query("DELETE FROM folders WHERE idFolder=?", [idFolder], (err) => {
+                if (!err) {
+                    res.json({ status: "Folder Deleted" });
+                } else {
+                    console.error(err);
+                    res.status(401).json({ status: "Unauthorized Request", error: "Wrong Request" });
+                }
+            });
+        } else {
             console.error(err);
-            res.status(401).json({status: "Unauthorized Request", error: "Wrong Request"});
+            res.status(401).json({ status: "Unauthorized Request", error: "Wrong Request" });
         }
     });
 }
