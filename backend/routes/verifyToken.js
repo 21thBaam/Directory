@@ -13,7 +13,6 @@ function verifyToken(req, res, next){
         if(!payload){
             return res.status("401").json({status: "Unauthorized Request"});
         }
-        console.log(payload);
         req.userId = payload.Usersid;
         next();
     }catch(e){

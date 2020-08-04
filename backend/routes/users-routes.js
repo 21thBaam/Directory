@@ -6,7 +6,7 @@ const users = require("../controllers/users-controller");
 
 router.get("/", verifyToken, users.getUsers);
 router.post("/", users.getUser);
-router.post("/add/", verifyToken, users.addUser);
+router.post("/add/", users.addUser);
 router.put("/:idUsers", verifyToken, users.editUser);
 router.delete("/:idUsers", verifyToken, users.deleteUser);
 

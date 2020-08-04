@@ -18,6 +18,21 @@ linksController.getLinks = (req, res) => {
     });
 }
 
+linksController.getLink = (req, res) => {
+    const token = req.headers.authorization.split(" ")[1];
+    const {idUsers} = jwt.verify(token, process.env.KEY);
+    const {idLink} = req.params;
+
+    pool.query("SELECT * FROM links WHERE idLinks=? AND idUser=?", [idLink, idUsers], (err, rows) => {
+        if(!err){
+            res.json(rows);
+        }else{
+            console.error(err);
+            res.status(401).json({status: "Unauthorized Request", error: "Wrong Request"});
+        }
+    });
+}
+
 linksController.addLink = (req, res) => {
     const token = req.headers.authorization.split(" ")[1];
     const {idUsers} = jwt.verify(token, process.env.KEY);

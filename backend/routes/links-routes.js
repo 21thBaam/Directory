@@ -6,6 +6,7 @@ const links = require("../controllers/links-controller");
 
 //Links
 router.get("/:idFolder", verifyToken, links.getLinks);
+router.get("/:idLink", verifyToken, links.getLink);
 router.post("/", verifyToken, links.addLink);
 router.put("/:idLinks", verifyToken, links.editLink);
 router.delete("/:idLinks", verifyToken, links.deleteLink);

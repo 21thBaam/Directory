@@ -16,6 +16,10 @@ export class LinksService {
     return this.http.get<any>(`${this.URL}/${idFolder}`);
   }
 
+  getLink(idLink: number): Observable<any>{
+    return this.http.get<any>(`${this.URL}/${idLink}`);
+  }
+
   addLink(link: LinkModel){
     return this.http.post<any>(`${this.URL}`, link);
   }

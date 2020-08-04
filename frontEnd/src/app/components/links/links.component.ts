@@ -25,4 +25,11 @@ export class LinksComponent implements OnInit {
       error => { console.log(error); } );
   }
 
+  edit(idLink: number){
+
+  }
+
+  delete(link: LinkModel){
+
+  }
 }

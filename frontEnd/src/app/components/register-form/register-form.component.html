@@ -1,6 +1,6 @@
 <form #registerForm="ngForm" (submit)="OnSubmit()">
     <div class="card-body">
-        <h5 class="card-title">Signup Form</h5>
+        <h5 class="card-title">Sign Up Form</h5>
 
         <div class="form-group">
             <label>Username</label>
@@ -54,9 +54,3 @@
         <button type="submit" [disabled]="!registerForm.form.valid" class="btn btn-primary btn-lg btn-block">Sign Up</button>
     </div>
 </form>
-
-<!--
-    id="username" #username="ngModel" 
-    #password="ngModel"
-    #email="ngModel"
--->

@@ -42,9 +42,8 @@ export class TokenInterceptorService implements HttpInterceptor{
     Swal.fire({
       icon: 'error',
       title: 'Oops...',
-      text: 'Something went wrong!',
-      showConfirmButton: false,
-      timer: 1500
+      text: `Something went wrong!`,
+      showConfirmButton: true
     });
   }
 }

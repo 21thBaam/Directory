@@ -19,6 +19,7 @@ import { Page404Component } from './components/page404/page404.component';
 import { AddFolderComponent } from './components/add-folder/add-folder.component';
 import { HighlightDirective } from './directives/highlight.directive';
 import { EditFolderComponent } from './components/edit-folder/edit-folder.component';
+import { EditLinkComponent } from './components/edit-link/edit-link.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { EditFolderComponent } from './components/edit-folder/edit-folder.compon
     Page404Component,
     AddFolderComponent,
     HighlightDirective,
-    EditFolderComponent
+    EditFolderComponent,
+    EditLinkComponent
   ],
   imports: [
     BrowserModule,

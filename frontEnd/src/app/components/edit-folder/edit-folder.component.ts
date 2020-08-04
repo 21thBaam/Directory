@@ -30,4 +30,5 @@ export class EditFolderComponent implements OnInit {
       res => { this.router.navigate(["/folders"], {relativeTo: this.route}); },
       error => { console.log(error); });
   }
+
 }
