@@ -5,12 +5,12 @@
                 <i (click)="edit(link.idLinks);" class="fa fa-edit fa-2x"></i>
                 <i (click)="delete(link);" class="fa fa-trash fa-2x"></i>
             </div>
-            <a [routerLink]="['/links']" [queryParams]="{ idLinks: link.idLinks}" routerLinkActive="active">
+            <a (click)="openLinks(link.URL);">
                 <div class="card-body">
                     <img src="../../../assets/Images/question-icon2.png" class="card-img-top" alt="Folder" />
                 </div>
             </a>
-            <a [routerLink]="['/links']" [queryParams]="{ idLinks: link.idLinks}" routerLinkActive="active">
+            <a (click)="openLinks(link.URL);">
                 <div class="card-footer">
                     <h5 class="card-title">{{link?.title}}</h5>
                     <p class="card-text">{{link?.description | slice:0:35}}</p>

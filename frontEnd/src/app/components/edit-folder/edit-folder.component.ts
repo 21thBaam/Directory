@@ -3,6 +3,8 @@ import { FolderServiceService } from "../../services/folder-service.service";
 import { FolderModel } from "../../models/folder-model";
 import { Router, ActivatedRoute } from '@angular/router';
 
+declare var Swal: any;
+
 @Component({
   selector: 'app-edit-folder',
   templateUrl: './edit-folder.component.html',
@@ -27,8 +29,20 @@ export class EditFolderComponent implements OnInit {
 
   onSubmit(){
     this.folderService.editFolder(this.folderData).subscribe(
-      res => { this.router.navigate(["/folders"], {relativeTo: this.route}); },
+      res => { this.doneMessage(); },
       error => { console.log(error); });
+  }
+
+  doneMessage(){
+    Swal.fire({
+      position: 'top-end',
+      icon: 'success',
+      title: 'Changes has been saved',
+      showConfirmButton: false,
+      timer: 1500
+    }).then(
+      this.router.navigate(["/folders"], {relativeTo: this.route})
+    );
   }
 
 }

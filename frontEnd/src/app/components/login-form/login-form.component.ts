@@ -20,25 +20,25 @@ export class LoginFormComponent implements OnInit {
   }
 
   OnSubmit() {
-    alert("Works");
-    console.log(this.loginUser);
     this.authService.logIn(this.loginUser).subscribe(
         res => { 
           if(res.token){
-            localStorage.setItem('token', res.token);
-            this.router.navigate(['/test']);
-          }else{
-            this.Message();
+            this.success(res);
           }
            },
         err => { console.log(err); } );
   }
 
-  Message(){
-    Swal.fire(
-      'Good job!',
-      'You clicked the button!',
-      'success'
-    );
+  success(value){
+    Swal.fire({
+      position: 'top-end',
+      icon: 'success',
+      title: 'Successful login',
+      showConfirmButton: false,
+      timer: 1500
+    }).then(res => {
+      localStorage.setItem('token', value.token);
+      this.router.navigate(['/folders']);
+    });
   }
 }

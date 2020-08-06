@@ -21,10 +21,11 @@ linksController.getLinks = (req, res) => {
 linksController.getLink = (req, res) => {
     const token = req.headers.authorization.split(" ")[1];
     const {idUsers} = jwt.verify(token, process.env.KEY);
-    const {idLink} = req.params;
+    const {idLinks} = req.params;
 
-    pool.query("SELECT * FROM links WHERE idLinks=? AND idUser=?", [idLink, idUsers], (err, rows) => {
+    pool.query("SELECT * FROM links WHERE idLinks=? AND idUser=?", [idLinks, idUsers], (err, rows) => {
         if(!err){
+            console.log(rows);
             res.json(rows);
         }else{
             console.error(err);
@@ -61,8 +62,10 @@ linksController.editLink = (req, res) => {
 }
 
 linksController.deleteLink = (req, res) => {
+    const token = req.headers.authorization.split(" ")[1];
+    const {idUsers} = jwt.verify(token, process.env.KEY);
     const {idLinks} = req.params;
-    pool.query("DELETE FROM links WHERE idLinks=?", [idLinks], (err) => {
+    pool.query("DELETE FROM links WHERE idLinks=? AND idUser=?", [idLinks, idUsers], (err) => {
         if(!err){
             res.json({status: "Link Deleted"});
         }else{

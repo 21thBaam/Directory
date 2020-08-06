@@ -17,10 +17,18 @@ export class LinksService {
   }
 
   getLink(idLink: number): Observable<any>{
-    return this.http.get<any>(`${this.URL}/${idLink}`);
+    return this.http.get<any>(`${this.URL}/getLink/${idLink}`);
   }
 
   addLink(link: LinkModel){
     return this.http.post<any>(`${this.URL}`, link);
+  }
+
+  deleteLink(link: LinkModel){
+    return this.http.delete<any>(`${this.URL}/${link.idLinks}`);
+  }
+
+  updateLink(link: LinkModel){
+    return this.http.put<any>(`${this.URL}/${link.idLinks}`, link);
   }
 }
