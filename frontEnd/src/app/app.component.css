@@ -4,3 +4,14 @@
     right: 0;
     margin: 0 3vw 3vw 0;
 }
+
+.input-group{
+    width: 15rem;
+    margin-bottom: auto;
+    margin-top: auto;
+}
+
+.input-group-text{
+    height: calc(1.5em + .75rem + 2px);
+    margin: auto 0 auto 0;
+}

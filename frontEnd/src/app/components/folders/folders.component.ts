@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FolderModel } from "../../models/folder-model";
 import { FolderServiceService } from "../../services/folder-service.service";
 import { ActivatedRoute, Router, ParamMap} from "@angular/router";
 
 declare var Swal: any;
+declare var $: any;
 
 @Component({
   selector: 'app-folders',
@@ -15,11 +16,21 @@ export class FoldersComponent implements OnInit {
   constructor(private folderService: FolderServiceService, private router: Router, private route: ActivatedRoute){ }
 
   folders: FolderModel[] = [{}] as FolderModel[];
+  searchText: string;
 
   ngOnInit(): void {
     this.folderService.getFolders().subscribe(
       res => { this.folders = res; },
       error => { console.log(error); });
+    this.getValue();
+  }
+
+  getValue(){
+    $("#searchBar").keyup( (res) => {
+      if(res){
+        this.searchText = (<HTMLInputElement>document.getElementById("searchBar")).value;
+      }
+    });
   }
 
   edit(idFolder: number){

@@ -40,9 +40,9 @@ export class EditFolderComponent implements OnInit {
       title: 'Changes has been saved',
       showConfirmButton: false,
       timer: 1500
-    }).then(
-      this.router.navigate(["/folders"], {relativeTo: this.route})
-    );
+    }).then( res => {
+      this.router.navigate(["/folders"], {relativeTo: this.route});
+    });
   }
 
 }

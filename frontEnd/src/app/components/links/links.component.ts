@@ -4,6 +4,7 @@ import { LinksService } from "../../services/links.service";
 import { ActivatedRoute, Router, ParamMap} from "@angular/router";
 
 declare var Swal: any;
+declare var $: any;
 
 @Component({
   selector: 'app-links',
@@ -14,7 +15,7 @@ export class LinksComponent implements OnInit {
 
   links: LinkModel[] = [] as LinkModel[];
   idFolder: number;
-
+  searchText: string;
 
   constructor(private linkService: LinksService, private router: Router, private route: ActivatedRoute) { }
 
@@ -25,10 +26,20 @@ export class LinksComponent implements OnInit {
     this.linkService.getLinks(this.idFolder).subscribe(
       res => { this.links = res; },
       error => { console.log(error); } );
+
+    this.getValue();
   }
 
   edit(idLink: number){
     this.router.navigate(["editLink"], {queryParams: {idLinks: idLink}});
+  }
+
+  getValue(){
+    $("#searchBar").keyup( (res) => {
+      if(res){
+        this.searchText = (<HTMLInputElement>document.getElementById("searchBar")).value;
+      }
+    });
   }
 
   delete(link: LinkModel){

@@ -17,6 +17,14 @@
         </li>
       </ul>
       <ul class="navbar-nav ml-auto">
+        <li>
+          <div *ngIf="searchBarVisible();" class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fa fa-search"></i></span>
+            </div>
+            <input type="text" class="form-control" placeholder="Search..." id="searchBar" autocomplete="off">
+          </div>
+        </li>
         <ng-container *ngIf="!authLoggedIn(); else loggedIn">
           <li class="nav-item">
             <a class="nav-link" routerLink="/login/loginForm" routerLinkActive="active">Sign In</a>

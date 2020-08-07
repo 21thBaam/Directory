@@ -21,6 +21,8 @@ import { HighlightDirective } from './directives/highlight.directive';
 import { EditFolderComponent } from './components/edit-folder/edit-folder.component';
 import { EditLinkComponent } from './components/edit-link/edit-link.component';
 
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,7 +42,8 @@ import { EditLinkComponent } from './components/edit-link/edit-link.component';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    Ng2SearchPipeModule
   ],
   providers: [
     AuthGuard,{

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from "./services/auth.service";
 import { Router } from "@angular/router";
+import { stringify } from 'querystring';
 
 declare var $: any;
 
@@ -14,11 +15,11 @@ export class AppComponent implements OnInit{
   title = 'frontEnd';
 
   forbiddenLinks = ["/test","/login","/login/loginForm","/login/registerForm"];
+  searchBarLinks = ["/folders", "/links"];
 
   ngOnInit():void{
-    $(document).ready(() => {
-
-    });
+    /* $(document).ready(() => {
+    }); */
   }
 
   authLoggedIn(){
@@ -34,6 +35,15 @@ export class AppComponent implements OnInit{
       return false;
     }else{
       return true;
+    }
+  }
+
+  searchBarVisible(){
+    var temp = this.router.url.split('?')[0];
+    if(this.searchBarLinks.indexOf(temp) > -1){
+      return true;
+    }else{
+      return false;
     }
   }
 

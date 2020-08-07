@@ -45,10 +45,9 @@ export class EditLinkComponent implements OnInit {
       title: 'Changes has been saved',
       showConfirmButton: false,
       timer: 1500
-    }).then(
+    }).then( res => {
       this.router.navigate(["/links"],
-      {queryParams: {idFolder: this.lastFolder}, relativeTo: this.route}
-      )
-    );
+      {queryParams: {idFolder: this.lastFolder}, relativeTo: this.route});
+    });
   }
 }
