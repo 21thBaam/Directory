@@ -1,6 +1,6 @@
 # Directory
  Directory of bookmarks [Nodejs and Angular]. <br>
- *I working or playing this project for Fun and Learning more of NodeJS and Angular and differents modules.*
+ *I working or playing on this project for Fun and Learning more of NodeJS and Angular and differents modules.*
 
 # Version 1.0
 
