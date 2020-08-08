@@ -47,4 +47,13 @@ export class AppComponent implements OnInit{
     }
   }
 
+  theme(){
+    console.log(document.body.style.background);
+    if(document.body.style.background === "rgb(54, 60, 70)"){
+      document.body.style.background = "none";
+    }else{
+      document.body.style.background = "#363C46";
+    }
+  }
+
 }

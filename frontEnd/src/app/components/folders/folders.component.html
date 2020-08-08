@@ -1,22 +1,35 @@
 <div class="container">
     <div class="row">
-        <div *ngFor="let folder of folders | filter:searchText" class="card">
-            <div class="actions">
-                <i (click)="edit(folder.idFolder);" class="fa fa-edit fa-2x"></i>
-                <i (click)="delete(folder);" class="fa fa-trash fa-2x"></i>
+        <div class="col">
+            <div class="row">
+                <div *ngFor="let folder of folders | filter:searchText" class="card">
+                    <div class="actions">
+                        <i (click)="edit(folder.idFolder);" class="fa fa-edit fa-2x"></i>
+                        <i (click)="delete(folder);" class="fa fa-trash fa-2x"></i>
+                    </div>
+                    <a [routerLink]="['/links']" [queryParams]="{ idFolder: folder.idFolder}" routerLinkActive="active">
+                        <div class="card-body">
+                            <img src="../../../assets/Images/folder-icon.png" class="card-img-top" alt="Folder" />
+                        </div>
+                    </a>
+                    <a [routerLink]="['/links']" [queryParams]="{ idFolder: folder.idFolder}" routerLinkActive="active">
+                        <div class="card-footer">
+                            <h5 class="card-title">{{folder?.folderName}}</h5>
+                            <p class="card-text">{{folder?.description | slice:0:18}}</p>
+                            <p class="card-text"><small class="text-muted">{{folder?.createdDate}}</small></p>
+                        </div>
+                    </a>
+                </div>
             </div>
-            <a [routerLink]="['/links']" [queryParams]="{ idFolder: folder.idFolder}" routerLinkActive="active">
-                <div class="card-body">
-                    <img src="../../../assets/Images/folder-icon.png" class="card-img-top" alt="Folder" />
+        </div>
+        <div class="col-4">
+            <div class="divSticky">
+                <div class="card dragSection mx-auto">
+                    <div class="card-body">
+                        Drag & Drop Section Details
+                    </div>
                 </div>
-            </a>
-            <a [routerLink]="['/links']" [queryParams]="{ idFolder: folder.idFolder}" routerLinkActive="active">
-                <div class="card-footer">
-                    <h5 class="card-title">{{folder?.folderName}}</h5>
-                    <p class="card-text">{{folder?.description | slice:0:18}}</p>
-                    <p class="card-text"><small class="text-muted">{{folder?.createdDate}}</small></p>
-                </div>
-            </a>
+            </div>
         </div>
     </div>
 </div>

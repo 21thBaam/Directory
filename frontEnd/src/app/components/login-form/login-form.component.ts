@@ -19,7 +19,7 @@ export class LoginFormComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  OnSubmit() {
+  onSubmit() {
     this.authService.logIn(this.loginUser).subscribe(
         res => { 
           if(res.token){
