@@ -9,9 +9,19 @@
     box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
 }
 
+.details{
+    max-width: 24rem;
+}
+
+.divSticky{
+    position: sticky;
+    top: 0;
+}
+
 a{
     text-decoration: none;
     color: #212529;
+    cursor: pointer;
 }
 
 .buttons-directory{
@@ -31,8 +41,4 @@ a{
     cursor: pointer;
     margin: 0 0.1rem 0 0.1rem;
     color: #3B4044;
-}
-
-a{
-    cursor: pointer;
 }

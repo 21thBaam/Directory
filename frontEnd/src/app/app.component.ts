@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from "./services/auth.service";
 import { Router } from "@angular/router";
-import { stringify } from 'querystring';
 
 declare var $: any;
 
@@ -18,8 +17,6 @@ export class AppComponent implements OnInit{
   searchBarLinks = ["/folders", "/links"];
 
   ngOnInit():void{
-    /* $(document).ready(() => {
-    }); */
   }
 
   authLoggedIn(){
@@ -48,7 +45,6 @@ export class AppComponent implements OnInit{
   }
 
   theme(){
-    console.log(document.body.style.background);
     if(document.body.style.background === "rgb(54, 60, 70)"){
       document.body.style.background = "none";
     }else{

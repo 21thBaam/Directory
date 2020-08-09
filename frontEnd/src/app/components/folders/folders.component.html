@@ -1,8 +1,8 @@
 <div class="container">
     <div class="row">
         <div class="col">
-            <div class="row">
-                <div *ngFor="let folder of folders | filter:searchText" class="card">
+            <div class="row" id="foldersCollection" cdkDropList [cdkDropListData]="filteredFolders" cdkDropListConnectedTo="detailsSection">
+                <div *ngFor="let folder of filteredFolders" class="card" cdkDrag>
                     <div class="actions">
                         <i (click)="edit(folder.idFolder);" class="fa fa-edit fa-2x"></i>
                         <i (click)="delete(folder);" class="fa fa-trash fa-2x"></i>
@@ -15,8 +15,6 @@
                     <a [routerLink]="['/links']" [queryParams]="{ idFolder: folder.idFolder}" routerLinkActive="active">
                         <div class="card-footer">
                             <h5 class="card-title">{{folder?.folderName}}</h5>
-                            <p class="card-text">{{folder?.description | slice:0:18}}</p>
-                            <p class="card-text"><small class="text-muted">{{folder?.createdDate}}</small></p>
                         </div>
                     </a>
                 </div>
@@ -24,9 +22,32 @@
         </div>
         <div class="col-4">
             <div class="divSticky">
-                <div class="card dragSection mx-auto">
-                    <div class="card-body">
-                        Drag & Drop Section Details
+                <div class="card details mx-auto" id="detailsSection" cdkDropList [cdkDropListData]="selectedFolder" (cdkDropListDropped)="drop($event)">
+                    <div class="card-header">
+                        Drag & Drop Details Section
+                    </div>
+                    <div class="card-body" style="text-align: center; height: 10rem;" *ngIf="dragMessage();">
+                        Drag & Drop Something Here<br>
+                        <i class="fa fa-arrow-circle-down fa-4x"></i>
+                    </div>
+                    <div *ngFor="let folder of selectedFolder">
+                        <div class="card-body">
+                            <div class="actions">
+                                <i (click)="deleteSelectedFolder();" class="fa fa-minus-circle fa-2x" style="color: #e91e3afa;"></i>
+                            </div>
+                            <a [routerLink]="['/links']" [queryParams]="{ idFolder: folder.idFolder}" routerLinkActive="active">
+                                <div class="card-body">
+                                    <img src="../../../assets/Images/folder-icon.png" class="card-img-top" alt="Folder" />
+                                </div>
+                            </a>
+                        </div>
+                        <a [routerLink]="['/links']" [queryParams]="{ idFolder: folder.idFolder}" routerLinkActive="active">
+                            <div class="card-footer">
+                                <h5 class="card-title">{{folder?.folderName}}</h5>
+                                <p class="card-text">{{folder?.description}}</p>
+                                <p class="card-text"><small class="text-muted">{{folder?.createdDate}}</small></p>
+                            </div>
+                        </a>
                     </div>
                 </div>
             </div>

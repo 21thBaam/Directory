@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LinkModel } from "../../models/link-model";
 import { LinksService } from "../../services/links.service";
 import { ActivatedRoute, Router, ParamMap} from "@angular/router";
+import {CdkDragDrop, copyArrayItem} from '@angular/cdk/drag-drop';
 
 declare var Swal: any;
 declare var $: any;
@@ -14,8 +15,10 @@ declare var $: any;
 export class LinksComponent implements OnInit {
 
   links: LinkModel[] = [] as LinkModel[];
+  filteredLinks: LinkModel[] = [] as LinkModel[];
   idFolder: number;
   searchText: string;
+  selectedLink = [];
 
   constructor(private linkService: LinksService, private router: Router, private route: ActivatedRoute) { }
 
@@ -24,7 +27,7 @@ export class LinksComponent implements OnInit {
         this.idFolder = parseInt(params.get("idFolder")); } );
 
     this.linkService.getLinks(this.idFolder).subscribe(
-      res => { this.links = res; },
+      res => { this.links = res; this.filteredLinks = res;},
       error => { console.log(error); } );
 
     this.getValue();
@@ -38,8 +41,19 @@ export class LinksComponent implements OnInit {
     $("#searchBar").keyup( (res) => {
       if(res){
         this.searchText = (<HTMLInputElement>document.getElementById("searchBar")).value;
+        this.filterLinks();
       }
     });
+  }
+
+  filterLinks(){
+    this.filteredLinks = [] as LinkModel[];
+    for(let link in this.links){
+      if(this.links[link].title.toLowerCase().includes(this.searchText.toLowerCase())){
+        this.filteredLinks.push(this.links[link]);
+      }
+    }
+    console.log(this.filteredLinks);
   }
 
   delete(link: LinkModel){
@@ -69,5 +83,28 @@ export class LinksComponent implements OnInit {
 
   openLinks(URL: string){
     window.open(URL);
+  }
+
+  drop(event: CdkDragDrop<number[]>) {
+    if (event.previousContainer !== event.container) {
+      if(this.selectedLink.length == 0){
+        copyArrayItem(event.previousContainer.data,
+          event.container.data,
+          event.previousIndex,
+          event.currentIndex);
+      }
+    }
+  }
+
+  deleteSelectedLink(){
+    this.selectedLink = [];
+  }
+
+  dragMessage(){
+    if(this.selectedLink.length == 0){
+      return true;
+    }else{
+      return false;
+    }
   }
 }

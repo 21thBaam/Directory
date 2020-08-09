@@ -30,7 +30,6 @@ export class EditLinkComponent implements OnInit {
     //Folders Data
     this.folderServiceService.getFolders().subscribe(
       res => { this.folderInfo = res; });
-    console.log(this.folderInfo);
   } 
 
   onSubmit(){

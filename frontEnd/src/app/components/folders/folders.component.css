@@ -9,13 +9,13 @@
     box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
 }
 
+.details{
+    max-width: 24rem;
+}
+
 .divSticky{
     position: sticky;
     top: 0;
-}
-
-.card.dragSection{
-    max-width: 100%;
 }
 
 a{
@@ -32,7 +32,7 @@ a{
 
 .actions{
     position: absolute;
-    right: 0;
+    right: 0px;
     margin: 0.5rem 0.5rem 0 0;
 }
 
