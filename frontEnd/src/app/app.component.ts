@@ -3,6 +3,7 @@ import { AuthService } from "./services/auth.service";
 import { Router } from "@angular/router";
 
 declare var $: any;
+declare var Swal: any;
 
 @Component({
   selector: 'app-root',
@@ -25,6 +26,7 @@ export class AppComponent implements OnInit{
 
   authLogout(){
     this.authService.logout();
+    this.done();
   }
 
   isVisible(){
@@ -51,6 +53,16 @@ export class AppComponent implements OnInit{
     }else{
       document.body.style.background = "#363C46";
     }
+  }
+
+  done(){
+    Swal.fire({
+      position: 'top-end',
+      icon: 'success',
+      title: 'Success Log out',
+      showConfirmButton: false,
+      timer: 1500
+    });
   }
 
 }

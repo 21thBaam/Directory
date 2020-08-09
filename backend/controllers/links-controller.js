@@ -25,7 +25,6 @@ linksController.getLink = (req, res) => {
 
     pool.query("SELECT * FROM links WHERE idLinks=? AND idUser=?", [idLinks, idUsers], (err, rows) => {
         if(!err){
-            console.log(rows);
             res.json(rows);
         }else{
             console.error(err);
