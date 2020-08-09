@@ -13,12 +13,13 @@
           <a class="nav-link" routerLink="/folders" routerLinkActive="active">Folders Collection</a>
         </li>
       </ul>
+
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
           <i class="fa fa-adjust fa-2x nav-link" (click)="theme()"></i>
         </li>
         <li>
-          <div *ngIf="searchBarVisible();" class="input-group">
+          <div *ngIf="searchBarVisible();" class="input-group" style="margin-top: 0.3rem;">
             <div class="input-group-prepend">
               <span class="input-group-text"><i class="fa fa-search"></i></span>
             </div>

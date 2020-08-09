@@ -22,9 +22,9 @@
 
                         <div class="form-group">
                             <label>Description</label>
-                            <input type="text" class="form-control" placeholder="Enter a description" name="description"
+                            <textarea class="form-control" rows="3" placeholder="Enter a description" name="description"
                                 [(ngModel)]="folderData.description" #description="ngModel" minlength="4"
-                                pattern="[a-zA-Z0-9 ]*" required />
+                                pattern="[a-zA-Z0-9 ]*" required></textarea>
                         </div>
                         <div *ngIf="description.invalid && (description.dirty && description.touched)"
                             class="alert alert-danger">

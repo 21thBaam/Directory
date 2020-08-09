@@ -13,7 +13,7 @@ export class AppComponent implements OnInit{
   constructor(private authService: AuthService, private router: Router){}
   title = 'frontEnd';
 
-  forbiddenLinks = ["/test","/login","/login/loginForm","/login/registerForm"];
+  allowedLinks = ["/folders", "/editFolder","/links", "/editLink"];
   searchBarLinks = ["/folders", "/links"];
 
   ngOnInit():void{
@@ -28,10 +28,11 @@ export class AppComponent implements OnInit{
   }
 
   isVisible(){
-    if(this.forbiddenLinks.indexOf(this.router.url) > -1){
-      return false;
-    }else{
+    var temp = this.router.url.split('?')[0];
+    if(this.allowedLinks.indexOf(temp) > -1){
       return true;
+    }else{
+      return false;
     }
   }
 
