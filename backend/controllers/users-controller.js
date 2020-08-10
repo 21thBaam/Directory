@@ -2,6 +2,7 @@ const usersController = {};
 const pool = require("../database");
 const {query} = require("express");
 const jwt = require("jsonwebtoken");
+const bcrypt = require('bcrypt');
 
 usersController.getUsers = (req, res) => {    
     pool.query("SELECT * FROM users", (err,rows) => {
@@ -16,11 +17,17 @@ usersController.getUsers = (req, res) => {
 
 usersController.getUser = (req, res) => {
     const {username, password} = req.body;
-    pool.query("SELECT * FROM users WHERE username=? AND password=?", [username, password], (err,rows) => {
+    pool.query("SELECT * FROM users WHERE username=?", [username], (err,rows) => {
         if(!err){
             if(rows.length > 0){
-                const token = jwt.sign({idUsers: rows[0]["idUsers"]}, process.env.KEY, { expiresIn: 60*60*2 } );
-                res.status(200).json({token});
+                bcrypt.compare(password, rows[0]["password"], function(err, result) {
+                    if(result){
+                        const token = jwt.sign({idUsers: rows[0]["idUsers"]}, process.env.KEY, { expiresIn: 60*60*2 } );
+                        res.status(200).json({token});
+                    }else{
+                        res.status(400).json({errorMessage: "Wrong Password"});
+                    }
+                });
             }else{
                 res.status(401).json({status: "Unauthorized Request", error: "Not founded"});
             }  
@@ -33,13 +40,15 @@ usersController.getUser = (req, res) => {
 
 usersController.addUser = (req, res) => {
     const {username, password, email} = req.body;
-    pool.query("INSERT INTO users(username, password, email) VALUES(?, ?, ?)", [username, password, email], (err) => {
-        if(!err){
-            res.json({status: "User Added"});
-        }else{
-            console.error(err);
-            res.status(401).json({status: "Unauthorized Request", error: "Wrong Request"});
-        }
+    bcrypt.hash(password, parseInt(process.env.SALTROUNDS), function(err, hash) {
+        pool.query("INSERT INTO users(username, password, email) VALUES(?, ?, ?)", [username, hash, email], (err) => {
+            if(!err){
+                res.json({status: "User Added"});
+            }else{
+                console.error(err);
+                res.status(401).json({status: "Unauthorized Request", error: "Wrong Request"});
+            }
+        });
     });
 }
 
