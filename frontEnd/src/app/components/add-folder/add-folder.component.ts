@@ -28,13 +28,16 @@ export class AddFolderComponent implements OnInit {
   }
 
   addFolder(folderAdd: NgForm){
-    this.folderServiceService.addFolder(this.folderData).subscribe(
-      res => {
-      this.done();
-      this.restartForm(folderAdd);},
-      erro => {
-        console.log(erro);
-      });
+    if (this.validatorFolderName()) {
+      this.folderServiceService.addFolder(this.folderData).subscribe(
+        res => {
+          this.done();
+          this.restartForm(folderAdd);
+        },
+        erro => {
+          console.log(erro);
+        });
+    }
   }
 
   addLink(linkAdd: NgForm){
@@ -59,5 +62,19 @@ export class AddFolderComponent implements OnInit {
 
   restartForm(form: NgForm){
     form.resetForm();
+  }
+
+  validatorFolderName(){
+    var temp = (<HTMLInputElement>document.getElementById("nameFolder")).value;
+    for(let name in this.folderInfo){
+      if(temp.toLowerCase() == this.folderInfo[name]["folderName"].toLowerCase()){
+        document.getElementById("existFN").innerHTML = "That folder name already exist";
+        document.getElementById("existFN").style.display = ""; 
+        return false;
+      }else{
+        document.getElementById("existFN").style.display = "none"; 
+      }
+    }
+    return true;
   }
 }

@@ -9,13 +9,17 @@
                     <div class="card-body">
                         <div class="form-group">
                             <label>Folder Name</label>
-                            <input type="text" class="form-control" placeholder="Enter Folder Name"
-                            name="folderName" [(ngModel)]="folderData.folderName" #folderName="ngModel" minlength="4" pattern="[a-zA-Z0-9 ]*" required/>
+                            <input type="text" id="nameFolder" class="form-control" placeholder="Enter Folder Name"
+                            name="folderName" [(ngModel)]="folderData.folderName" #folderName="ngModel" minlength="4" pattern="[a-zA-Z0-9 ]*" (keyup)="validatorFolderName()" required/>
                         </div>
                         <div *ngIf="folderName.invalid && (folderName.dirty && folderName.touched)" class="alert alert-danger">
                             <div *ngIf="folderName.errors.minlength">Minimum length is 4</div>
                             <div *ngIf="folderName.errors.pattern">Only Letters and Numbers</div>
                             <div *ngIf="folderName.errors.required">Enter a folder name</div>
+                        </div>
+
+                        <div id="existFN" class="alert alert-danger" style="display: none;">
+                            
                         </div>
 
                         <div class="form-group">
