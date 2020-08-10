@@ -14,7 +14,7 @@ declare var Swal: any;
 })
 export class EditLinkComponent implements OnInit {
 
-  folderInfo: FolderModel[] = {} as FolderModel[];
+  folderInfo: FolderModel[] = [] as FolderModel[];
   lastFolder: number;
   linkData: LinkModel = {} as LinkModel;
 

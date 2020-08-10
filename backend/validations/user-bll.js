@@ -12,7 +12,7 @@ userBll.getUserValidations = (req, res, next) => {
         res.status(400).json({errorMessage: "Username doesn't hasn't the min length"});
         return false;
     }
-    if(password >= 4){
+    if(password.length >= 4){
         if(!(password.match(patterns[1])[0] === password)){
             res.status(400).json({errorMessage: "Password doesn't match with the format"});
             return false;

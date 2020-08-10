@@ -53,7 +53,6 @@ export class LinksComponent implements OnInit {
         this.filteredLinks.push(this.links[link]);
       }
     }
-    console.log(this.filteredLinks);
   }
 
   delete(link: LinkModel){

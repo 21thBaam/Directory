@@ -22,7 +22,7 @@ export class EditFolderComponent implements OnInit {
       this.idFolder = parseInt(params.get("idFolder")); } );
 
     this.folderService.getFolder(this.idFolder).subscribe(
-      res => { this.folderData = res[0]; console.log(this.folderData); },
+      res => { this.folderData = res[0]; },
       error => { console.log(error); });
   }
 

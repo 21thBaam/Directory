@@ -18,7 +18,7 @@ export class AddFolderComponent implements OnInit {
   constructor(private folderServiceService: FolderServiceService, private linksService: LinksService, private router: Router) { }
 
   folderData: FolderModel = {} as FolderModel;
-  folderInfo: FolderModel[] = {} as FolderModel[];
+  folderInfo: FolderModel[] = [] as FolderModel[];
   linkData: LinkModel = {} as LinkModel;
 
   ngOnInit(): void {

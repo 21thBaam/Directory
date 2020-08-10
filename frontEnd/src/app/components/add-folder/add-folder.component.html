@@ -44,7 +44,7 @@
                         <div class="form-group">
                             <label>Folder</label>
                             <select name="SelectedFolder" [(ngModel)]="linkData.idFolder" #SelectedFolder="ngModel" class="form-control" required>
-                                <option selected disabled>Select a Folder</option>
+                                <option disabled>Select a Folder</option>
                                 <option *ngFor="let folder of folderInfo" value="{{folder.idFolder}}">{{folder.folderName}} || Folder ID: {{folder.idFolder}}</option>
                             </select>
                         </div>

@@ -23,8 +23,11 @@ export class TokenInterceptorService implements HttpInterceptor{
       catchError(
         (err, caught) => {
           if (err.status === 401) {
-            this.handleAuthError();
+            this.handleAuthError('Something went wrong!');
             return (err);
+          }
+          if(err.status === 400){
+            this.wrong(err.error["errorMessage"]);
           }
           throw err;
         }
@@ -32,17 +35,17 @@ export class TokenInterceptorService implements HttpInterceptor{
     );
   }
 
-  private handleAuthError(){
+  private handleAuthError(errorMessage){
     localStorage.removeItem("token");
-    this.wrong();
+    this.wrong(errorMessage);
     this.router.navigateByUrl('/login');
   }
 
-  wrong(){
+  wrong(errorMessage){
     Swal.fire({
       icon: 'error',
       title: 'Oops...',
-      text: `Something went wrong!`,
+      text: errorMessage,
       showConfirmButton: true
     });
   }
