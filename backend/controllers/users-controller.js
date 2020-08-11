@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require('bcrypt');
 
 usersController.getUsers = (req, res) => {    
-    pool.query("SELECT * FROM users", (err,rows) => {
+    pool.query("SELECT username FROM users", (err,rows) => {
         if(!err){
             res.json(rows);
         }else{

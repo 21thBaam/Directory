@@ -13,24 +13,32 @@ declare var Swal: any;
 export class RegisterFormComponent implements OnInit {
 
   registerUser: UserModel = {} as UserModel;
+  usernames: any;
   confirmPassword = "";
 
   constructor(private route: ActivatedRoute, private router: Router, private userService: UserService) { }
 
   ngOnInit(): void {
+    this.userService.getUsers().subscribe(res => {this.usernames = res;});
   }
 
   OnSubmit(){
-    if(this.Validations()){
-      this.userService.addUser(this.registerUser).subscribe(
-        res => {
-          this.success();
-          this.registerUser = {} as UserModel;
-          this.router.navigate(["login/loginForm"]);
-        });
-    }else{
-      this.failed();
-    }
+    this.userService.getUsers().subscribe(
+      res => {
+        this.usernames = res;
+        if(this.validatorUsername()){
+          if(this.Validations()){
+            this.userService.addUser(this.registerUser).subscribe(
+              res => {
+                this.success();
+                this.registerUser = {} as UserModel;
+                this.router.navigate(["login/loginForm"]);
+              });
+          }else{
+            this.failed();
+          }
+        }
+      });
   }
 
   Validations(){
@@ -56,5 +64,19 @@ export class RegisterFormComponent implements OnInit {
       title: 'Oops...',
       text: `Your Password and Confirm Password doesn't match`
     });
+  }
+
+  validatorUsername(){
+    var temp = (<HTMLInputElement>document.getElementById("nameUser")).value;
+    for(let name in this.usernames){
+      if(temp.toLowerCase() == this.usernames[name]["username"].toLowerCase()){
+        document.getElementById("existUN").innerHTML = "That Username already exist";
+        document.getElementById("existUN").style.display = ""; 
+        return true;
+      }else{
+        document.getElementById("existUN").style.display = "none"; 
+      }
+    }
+    return true;
   }
 }

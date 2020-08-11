@@ -15,4 +15,8 @@ export class UserService {
   addUser(user: UserModel){
     return this.http.post<any>(`${this.URL}/add/`, user);
   }
+
+  getUsers():Observable <any>{
+    return this.http.get<any>(`${this.URL}`);
+  }
 }
