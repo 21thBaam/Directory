@@ -1,16 +1,17 @@
 const foldersController = {};
-const pool = require("../database");
-const {query} = require("express");
+const folderModel = require("../models/folder-model");
+const linkModel = require("../models/link-model");
 const jwt = require("jsonwebtoken");
 
 foldersController.getFolders = (req, res) => {
     const token = req.headers.authorization.split(" ")[1];
     const {idUsers} = jwt.verify(token, process.env.KEY);
-    pool.query("SELECT * FROM folders WHERE idUser=?", [idUsers], (err, rows) => {
+
+    folderModel.find({idUsers: idUsers}, (err, result) => {
         if(!err){
-            res.json(rows);
+            res.json(result);
         }else{
-            console.error(err);
+            console.log(err);
             res.status(401).json({status: "Unauthorized Request", error: "Wrong Request"});
         }
     });
@@ -20,9 +21,9 @@ foldersController.getFolder = (req, res) => {
     const token = req.headers.authorization.split(" ")[1];
     const {idUsers} = jwt.verify(token, process.env.KEY);
     const {idFolder} = req.params;
-    pool.query("SELECT * FROM folders WHERE idUser=? AND idFolder=?", [idUsers, idFolder], (err, rows) => {
+    folderModel.find({idUsers: idUsers, _id: idFolder}, (err, result) => {
         if(!err){
-            res.json(rows);
+            res.json(result);
         }else{
             console.error(err);
             res.status(401).json({status: "Unauthorized Request", error: "Wrong Request"});
@@ -30,29 +31,61 @@ foldersController.getFolder = (req, res) => {
     });
 }
 
-foldersController.addFolder = (req, res) => {
+foldersController.addFolder = async (req, res) => {
     const token = req.headers.authorization.split(" ")[1];
     const {idUsers} = jwt.verify(token, process.env.KEY);
     const {folderName, description} = req.body;
-    pool.query("INSERT INTO folders (idUser, folderName, description) VALUES (?, ?, ?)", [idUsers, folderName, description], (err) => {
-        if(!err){
-            res.json({status: "Folder Added"});
-        }else{
-            console.error(err);
-            res.status(401).json({status: "Unauthorized Request", error: "Wrong Request"});
+
+    const folderAdd = await new folderModel({folderName, description, idUsers}, (err) => {
+        if(err){
+            console.log(err);
+            res.status(400).json({err});
         }
     });
+
+    const folder = await folderModel.find({idUsers: idUsers, folderName: folderName});
+
+    if (folder.length <= 0) {
+        await folderAdd.save((err) => {
+            if (!err) {
+                res.json({ status: "Folder Added" });
+            } else {
+                var messageError = "";
+                console.log(err);
+                /* if (err["code"] == 11000) {
+                    res.status(400).json({ errorMessage: "That Folder name already exist" });
+                    return false;
+                } */
+                for (let a in err["errors"]) {
+                    messageError += err["errors"][a]["properties"]["message"] + " ";
+                }
+                res.status(400).json({ errorMessage: messageError });
+            }
+        });
+    }else{
+        res.status(400).json({ errorMessage: "That Folder name already exist" });
+        return false;
+    }
 }
 
 foldersController.editFolder = (req, res) => {
     const {idFolder} = req.params;
     const {folderName, description} = req.body;
-    pool.query("UPDATE folders SET folderName=?, description=? WHERE idFolder=?", [folderName, description, idFolder], (err) => {
+
+    folderModel.update({_id:idFolder},{folderName, description}, { runValidators: true }, (err) => {
         if(!err){
             res.json({status: "Folder Updated"});
         }else{
-            console.error(err);
-            res.status(401).json({status: "Unauthorized Request", error: "Wrong Request"});
+            var messageError="";
+            console.log(err);
+            if(err["code"] == 11000){
+                res.status(400).json({errorMessage: "That Folder name already exist"});
+                return false;
+            }
+            for(let a in err["errors"]){
+                messageError += err["errors"][a]["properties"]["message"]+" ";
+            }
+            res.status(400).json({errorMessage: messageError});
         }
     });
 }
@@ -62,17 +95,17 @@ foldersController.deleteFolder = (req, res) => {
     const {idUsers} = jwt.verify(token, process.env.KEY);
     const {idFolder} = req.params;
 
-    pool.query("DELETE FROM links WHERE idFolder=? AND idUser=?", [idFolder, idUsers], (err) => {
-        if (!err) {
-            pool.query("DELETE FROM folders WHERE idFolder=?", [idFolder], (err) => {
-                if (!err) {
+    linkModel.remove({idFolder: idFolder, idUsers: idUsers}, (err) => {
+        if(!err){
+            folderModel.remove({_id: idFolder, idUsers: idUsers}, (err) => {
+                if(!err){
                     res.json({ status: "Folder Deleted" });
-                } else {
+                }else{
                     console.error(err);
                     res.status(401).json({ status: "Unauthorized Request", error: "Wrong Request" });
                 }
             });
-        } else {
+        }else{
             console.error(err);
             res.status(401).json({ status: "Unauthorized Request", error: "Wrong Request" });
         }

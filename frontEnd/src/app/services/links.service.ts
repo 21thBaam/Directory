@@ -16,7 +16,7 @@ export class LinksService {
     return this.http.get<any>(`${this.URL}/${idFolder}`);
   }
 
-  getLink(idLink: number): Observable<any>{
+  getLink(idLink: String): Observable<any>{
     return this.http.get<any>(`${this.URL}/getLink/${idLink}`);
   }
 
@@ -25,10 +25,10 @@ export class LinksService {
   }
 
   deleteLink(link: LinkModel){
-    return this.http.delete<any>(`${this.URL}/${link.idLinks}`);
+    return this.http.delete<any>(`${this.URL}/${link._id}`);
   }
 
   updateLink(link: LinkModel){
-    return this.http.put<any>(`${this.URL}/${link.idLinks}`, link);
+    return this.http.put<any>(`${this.URL}/${link._id}`, link);
   }
 }

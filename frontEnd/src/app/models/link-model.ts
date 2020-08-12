@@ -1,7 +1,7 @@
 export interface LinkModel {
-    idLinks: number;
-    idFolder: number;
-    idUser: number;
+    _id: String;
+    idFolder: String;
+    idUser: String;
     title: string;
     description: string;
     URL: string;

@@ -16,7 +16,7 @@ export class LinksComponent implements OnInit {
 
   links: LinkModel[] = [] as LinkModel[];
   filteredLinks: LinkModel[] = [] as LinkModel[];
-  idFolder: number;
+  idFolder: String;
   searchText: string;
   selectedLink = [];
 
@@ -24,7 +24,7 @@ export class LinksComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.queryParamMap.subscribe((params) => {
-        this.idFolder = parseInt(params.get("idFolder")); } );
+        this.idFolder = params.get("idFolder"); } );
 
     this.linkService.getLinks(this.idFolder).subscribe(
       res => { this.links = res; this.filteredLinks = res;},
@@ -33,7 +33,7 @@ export class LinksComponent implements OnInit {
     this.getValue();
   }
 
-  edit(idLink: number){
+  edit(idLink: String){
     this.router.navigate(["editLink"], {queryParams: {idLinks: idLink}});
   }
 

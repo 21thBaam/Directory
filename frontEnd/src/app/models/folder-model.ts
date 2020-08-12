@@ -1,7 +1,8 @@
 export interface FolderModel {
-    idFolder: number;
-    idUser: number;
+    _id: number;
+    idUser: String;
     folderName: string;
     description: string;
-    createdDate: Date;
+    createdAt: Date;
+    updatedAt: Date;
 }

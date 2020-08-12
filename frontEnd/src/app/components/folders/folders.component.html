@@ -4,15 +4,15 @@
             <div class="row" id="foldersCollection" cdkDropList [cdkDropListData]="filteredFolders" cdkDropListConnectedTo="detailsSection">
                 <div *ngFor="let folder of filteredFolders" class="card" cdkDrag>
                     <div class="actions">
-                        <i (click)="edit(folder.idFolder);" class="fa fa-edit fa-2x"></i>
+                        <i (click)="edit(folder._id);" class="fa fa-edit fa-2x"></i>
                         <i (click)="delete(folder);" class="fa fa-trash fa-2x"></i>
                     </div>
-                    <a [routerLink]="['/links']" [queryParams]="{ idFolder: folder.idFolder}" routerLinkActive="active">
+                    <a [routerLink]="['/links']" [queryParams]="{ idFolder: folder._id}" routerLinkActive="active">
                         <div class="card-body">
                             <img src="../../../assets/Images/folder-icon.png" class="card-img-top" alt="Folder" />
                         </div>
                     </a>
-                    <a [routerLink]="['/links']" [queryParams]="{ idFolder: folder.idFolder}" routerLinkActive="active">
+                    <a [routerLink]="['/links']" [queryParams]="{ idFolder: folder._id}" routerLinkActive="active">
                         <div class="card-footer">
                             <h5 class="card-title">{{folder?.folderName}}</h5>
                         </div>
@@ -35,17 +35,18 @@
                             <div class="actions">
                                 <i (click)="deleteSelectedFolder();" class="fa fa-minus-circle fa-2x" style="color: #e91e3afa;"></i>
                             </div>
-                            <a [routerLink]="['/links']" [queryParams]="{ idFolder: folder.idFolder}" routerLinkActive="active">
+                            <a [routerLink]="['/links']" [queryParams]="{ idFolder: folder._id}" routerLinkActive="active">
                                 <div class="card-body">
                                     <img src="../../../assets/Images/folder-icon.png" class="card-img-top" alt="Folder" />
                                 </div>
                             </a>
                         </div>
-                        <a [routerLink]="['/links']" [queryParams]="{ idFolder: folder.idFolder}" routerLinkActive="active">
+                        <a [routerLink]="['/links']" [queryParams]="{ idFolder: folder._id}" routerLinkActive="active">
                             <div class="card-footer">
                                 <h5 class="card-title">{{folder?.folderName}}</h5>
                                 <p class="card-text">{{folder?.description}}</p>
-                                <p class="card-text"><small class="text-muted">{{folder?.createdDate}}</small></p>
+                                <small class="text-muted">Created At: {{folder?.createdAt}}</small><br>
+                                <small class="text-muted">Updated At: {{folder?.updatedAt}}</small>
                             </div>
                         </a>
                     </div>

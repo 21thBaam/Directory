@@ -1,6 +1,5 @@
 const linksController = {};
-const pool = require("../database");
-const {query} = require("express");
+const linkModel = require("../models/link-model");
 const jwt = require("jsonwebtoken");
 
 linksController.getLinks = (req, res) => {
@@ -8,9 +7,9 @@ linksController.getLinks = (req, res) => {
     const {idUsers} = jwt.verify(token, process.env.KEY);
     const {idFolder} = req.params;
     
-    pool.query("SELECT * FROM links WHERE idFolder=? AND idUser=?", [idFolder, idUsers], (err, rows) => {
+    linkModel.find({idUsers: idUsers, idFolder: idFolder}, (err, result) => {
         if(!err){
-            res.json(rows);
+            res.json(result);
         }else{
             console.error(err);
             res.status(401).json({status: "Unauthorized Request", error: "Wrong Request"});
@@ -23,9 +22,9 @@ linksController.getLink = (req, res) => {
     const {idUsers} = jwt.verify(token, process.env.KEY);
     const {idLinks} = req.params;
 
-    pool.query("SELECT * FROM links WHERE idLinks=? AND idUser=?", [idLinks, idUsers], (err, rows) => {
+    linkModel.find({_id: idLinks, idUsers: idUsers}, (err, result) => {
         if(!err){
-            res.json(rows);
+            res.json(result);
         }else{
             console.error(err);
             res.status(401).json({status: "Unauthorized Request", error: "Wrong Request"});
@@ -33,16 +32,28 @@ linksController.getLink = (req, res) => {
     });
 }
 
-linksController.addLink = (req, res) => {
+linksController.addLink = async (req, res) => {
     const token = req.headers.authorization.split(" ")[1];
     const {idUsers} = jwt.verify(token, process.env.KEY);
     const {idFolder, title, description, URL} = req.body;
-    pool.query("INSERT INTO links (idFolder, idUser, title, description, URL) VALUES(?, ?, ?, ?, ?)", [idFolder, idUsers, title, description, URL], (err) => {
+
+    const linkAdd = await new linkModel({idFolder, idUsers, title, description, URL}, (err) => {
+        if(err){
+            console.log(err);
+            res.status(400).json({err});
+        }
+    });
+
+    await linkAdd.save((err) => {
         if(!err){
             res.json({status: "Link Added"});
         }else{
-            console.error(err);
-            res.status(401).json({status: "Unauthorized Request", error: "Wrong Request"});
+            var messageError="";
+            console.log(err);
+            for(let a in err["errors"]){
+                messageError += err["errors"][a]["properties"]["message"]+" ";
+            }
+            res.status(400).json({errorMessage: messageError});
         }
     });
 }
@@ -50,12 +61,17 @@ linksController.addLink = (req, res) => {
 linksController.editLink = (req, res) => {
     const {idLinks} = req.params;
     const {idFolder, title, description, URL} = req.body;
-    pool.query("UPDATE links SET idFolder=?, title=?, description=?, URL=? WHERE idLinks=?", [idFolder, title, description, URL, idLinks], (err) => {
+
+    linkModel.update({_id: idLinks}, {idFolder, title, description, URL}, {runValidators: true}, (err) => {
         if(!err){
             res.json({status: "Link Updated"});
         }else{
-            console.error(err);
-            res.status(401).json({status: "Unauthorized Request", error: "Wrong Request"});
+            var messageError="";
+            console.log(err);
+            for(let a in err["errors"]){
+                messageError += err["errors"][a]["properties"]["message"]+" ";
+            }
+            res.status(400).json({errorMessage: messageError});
         }
     });
 }
@@ -64,12 +80,13 @@ linksController.deleteLink = (req, res) => {
     const token = req.headers.authorization.split(" ")[1];
     const {idUsers} = jwt.verify(token, process.env.KEY);
     const {idLinks} = req.params;
-    pool.query("DELETE FROM links WHERE idLinks=? AND idUser=?", [idLinks, idUsers], (err) => {
+
+    linkModel.remove({_id: idLinks, idUsers: idUsers}, (err) => {
         if(!err){
-            res.json({status: "Link Deleted"});
+            res.json({ status: "Link Deleted" });
         }else{
             console.error(err);
-            res.status(401).json({status: "Unauthorized Request", error: "Wrong Request"});
+            res.status(401).json({ status: "Unauthorized Request", error: "Wrong Request" });
         }
     });
 }

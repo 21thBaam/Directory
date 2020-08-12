@@ -15,7 +15,7 @@ declare var Swal: any;
 export class EditLinkComponent implements OnInit {
 
   folderInfo: FolderModel[] = [] as FolderModel[];
-  lastFolder: number;
+  lastFolder: String;
   linkData: LinkModel = {} as LinkModel;
 
   constructor(private folderServiceService: FolderServiceService, private linksService: LinksService, private router: Router, private route: ActivatedRoute) { }
@@ -23,9 +23,9 @@ export class EditLinkComponent implements OnInit {
   ngOnInit(): void {
     //Params
     this.route.queryParamMap.subscribe((params) => {
-      this.linkData.idLinks = parseInt(params.get("idLinks")); } );
+      this.linkData._id = params.get("idLinks"); } );
     //Link Data
-    this.linksService.getLink(this.linkData.idLinks).subscribe(
+    this.linksService.getLink(this.linkData._id).subscribe(
       res => { this.linkData = res[0]; this.lastFolder = this.linkData.idFolder; });
     //Folders Data
     this.folderServiceService.getFolders().subscribe(

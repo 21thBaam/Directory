@@ -14,15 +14,15 @@ export class EditFolderComponent implements OnInit {
 
   constructor(private folderService: FolderServiceService, private route: ActivatedRoute, private router: Router) { }
 
-  idFolder: number;
+  idFolder: String;
   folderData: FolderModel = {} as FolderModel;
 
   ngOnInit(): void {
     this.route.queryParamMap.subscribe((params) => {
-      this.idFolder = parseInt(params.get("idFolder")); } );
+      this.idFolder = params.get("idFolder"); } );
 
     this.folderService.getFolder(this.idFolder).subscribe(
-      res => { this.folderData = res[0]; },
+      res => { this.folderData = res[0]; console.log(res);},
       error => { console.log(error); });
   }
 
