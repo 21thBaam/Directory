@@ -46,7 +46,7 @@ export class FoldersComponent implements OnInit {
     }
   }
 
-  edit(idFolder: number){
+  edit(idFolder: String){
     this.router.navigate(["editFolder"], {queryParams: {idFolder: idFolder}});
   }
 

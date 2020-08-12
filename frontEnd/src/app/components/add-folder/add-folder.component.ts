@@ -4,7 +4,7 @@ import { LinkModel } from "../../models/link-model";
 import { LinksService } from "../../services/links.service";
 import { FolderServiceService } from "../../services/folder-service.service";
 import { Router } from "@angular/router";
-import {NgForm} from '@angular/forms';
+import { NgForm } from '@angular/forms';
 
 declare var Swal: any;
 

@@ -16,21 +16,31 @@ export class EditFolderComponent implements OnInit {
 
   idFolder: String;
   folderData: FolderModel = {} as FolderModel;
+  folderInfo: FolderModel[] = [] as FolderModel[];
+  currentFolderName: String;
 
   ngOnInit(): void {
     this.route.queryParamMap.subscribe((params) => {
       this.idFolder = params.get("idFolder"); } );
 
     this.folderService.getFolder(this.idFolder).subscribe(
-      res => { this.folderData = res[0]; console.log(res);},
+      res => { 
+        this.folderData = res[0]; 
+        this.currentFolderName = this.folderData.folderName;
+      },
+      error => { console.log(error); });
+
+    this.folderService.getFolders().subscribe(
+      res => { this.folderInfo = res;},
       error => { console.log(error); });
   }
 
-
   onSubmit(){
-    this.folderService.editFolder(this.folderData).subscribe(
-      res => { this.doneMessage(); },
-      error => { console.log(error); });
+    if(this.validatorFolderName()){
+      this.folderService.editFolder(this.folderData, this.currentFolderName).subscribe(
+        res => { this.doneMessage(); },
+        error => { console.log(error); });
+    }
   }
 
   doneMessage(){
@@ -43,6 +53,20 @@ export class EditFolderComponent implements OnInit {
     }).then( res => {
       this.router.navigate(["/folders"], {relativeTo: this.route});
     });
+  }
+
+  validatorFolderName(){
+    var temp = (<HTMLInputElement>document.getElementById("nameFolder")).value;
+    for(let name in this.folderInfo){
+      if(temp.toLowerCase() == this.folderInfo[name]["folderName"].toLowerCase() && temp.toLowerCase() != this.currentFolderName.toLowerCase()){
+        document.getElementById("existFN").innerHTML = "That folder name already exist";
+        document.getElementById("existFN").style.display = ""; 
+        return true;
+      }else{
+        document.getElementById("existFN").style.display = "none"; 
+      }
+    }
+    return true;
   }
 
 }

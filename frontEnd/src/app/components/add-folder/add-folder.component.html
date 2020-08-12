@@ -19,13 +19,12 @@
                         </div>
 
                         <div id="existFN" class="alert alert-danger" style="display: none;">
-                            
                         </div>
 
                         <div class="form-group">
                             <label>Description</label>
                             <textarea class="form-control" rows="3" placeholder="Enter a description"
-                            name="description" [(ngModel)]="folderData.description" #description="ngModel" minlength="4" pattern="[a-zA-Z0-9 ]*" required></textarea>
+                            name="description" [(ngModel)]="folderData.description" #description="ngModel" minlength="4" pattern="[a-zA-Z0-9@! ]*" required></textarea>
                         </div>
                         <div *ngIf="description.invalid && (description.dirty && description.touched)" class="alert alert-danger">
                             <div *ngIf="description.errors.minlength">Minimum length is 4</div>
@@ -49,7 +48,7 @@
                             <label>Folder</label>
                             <select name="SelectedFolder" [(ngModel)]="linkData.idFolder" #SelectedFolder="ngModel" class="form-control" required>
                                 <option disabled>Select a Folder</option>
-                                <option *ngFor="let folder of folderInfo" value="{{folder._id}}">{{folder.folderName}} || Folder ID: {{folder._id}}</option>
+                                <option *ngFor="let folder of folderInfo" value="{{folder._id}}">{{folder.folderName}}</option>
                             </select>
                         </div>
                         <div *ngIf="SelectedFolder.invalid && (SelectedFolder.dirty || SelectedFolder.touched)" class="alert alert-danger">
@@ -70,7 +69,7 @@
                         <div class="form-group">
                             <label>Description</label>
                             <textarea class="form-control" rows="3" placeholder="Enter a description"
-                            name="descriptionlink" [(ngModel)]="linkData.description" #descriptionlink="ngModel" minlength="4" pattern="[a-zA-Z0-9 ]*" required></textarea>
+                            name="descriptionlink" [(ngModel)]="linkData.description" #descriptionlink="ngModel" minlength="4" pattern="[a-zA-Z0-9@! ]*" required></textarea>
                         </div>
                         <div *ngIf="descriptionlink.invalid && (descriptionlink.dirty && descriptionlink.touched)" class="alert alert-danger">
                             <div *ngIf="descriptionlink.errors.minlength">Minimum length is 4</div>

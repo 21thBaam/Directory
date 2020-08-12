@@ -20,8 +20,9 @@ export class FolderServiceService {
     return this.http.get<any>(`${this.URL}/${idFolder}`);
   }
 
-  editFolder(folder: FolderModel){
-    return this.http.put<any>(`${this.URL}/${folder._id}`, folder);
+  editFolder(folder: any, currentFolderName: String){
+    folder["currentFolderName"] = currentFolderName;
+    return this.http.put<any>(`${this.URL}/${folder._id}`, folder,);
   }
 
   addFolder(folder: FolderModel){

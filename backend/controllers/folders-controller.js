@@ -68,26 +68,35 @@ foldersController.addFolder = async (req, res) => {
     }
 }
 
-foldersController.editFolder = (req, res) => {
+foldersController.editFolder = async (req, res) => {
     const {idFolder} = req.params;
-    const {folderName, description} = req.body;
+    const token = req.headers.authorization.split(" ")[1];
+    const {idUsers} = jwt.verify(token, process.env.KEY);
+    const {folderName, description, currentFolderName} = req.body;
 
-    folderModel.update({_id:idFolder},{folderName, description}, { runValidators: true }, (err) => {
-        if(!err){
-            res.json({status: "Folder Updated"});
-        }else{
-            var messageError="";
-            console.log(err);
-            if(err["code"] == 11000){
-                res.status(400).json({errorMessage: "That Folder name already exist"});
-                return false;
+    const folder = await folderModel.find({idUsers: idUsers, folderName: {$regex : new RegExp(folderName, "i")} });
+
+    if(folder.length <= 0 || folder[0]["folderName"].toLowerCase() == currentFolderName.toLowerCase()){
+        folderModel.update({_id:idFolder},{folderName, description}, { runValidators: true }, (err) => {
+            if(!err){
+                res.json({status: "Folder Updated"});
+            }else{
+                var messageError="";
+                console.log(err);
+                if(err["code"] == 11000){
+                    res.status(400).json({errorMessage: "That Folder name already exist"});
+                    return false;
+                }
+                for(let a in err["errors"]){
+                    messageError += err["errors"][a]["properties"]["message"]+" ";
+                }
+                res.status(400).json({errorMessage: messageError});
             }
-            for(let a in err["errors"]){
-                messageError += err["errors"][a]["properties"]["message"]+" ";
-            }
-            res.status(400).json({errorMessage: messageError});
-        }
-    });
+        });
+    }else{
+        res.status(400).json({ errorMessage: "That Folder name already exist" });
+        return false;
+    }
 }
 
 foldersController.deleteFolder = (req, res) => {
