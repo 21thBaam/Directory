@@ -5,6 +5,10 @@
     margin: 0 3vw 3vw 0;
 }
 
+.buttons-directory a img{
+    width: 6rem;
+}
+
 .input-group{
     width: 15rem;
     margin-bottom: auto;
